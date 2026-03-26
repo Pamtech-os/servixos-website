@@ -9,14 +9,14 @@ const HeroSection = () => {
   return (
     <section
       id='hero'
-      className='hero-gradient relative min-h-screen overflow-hidden pt-24 md:pt-32'
+      className='hero-gradient relative min-h-screen overflow-hidden pt-24 pb-14 md:min-h-[auto] md:pt-24 md:pb-14 lg:pt-24 lg:pb-20 xl:min-h-screen xl:pt-28 xl:pb-20'
     >
       {/* Decorative blobs */}
       <div className='pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-primary/10 blur-3xl' />
       <div className='pointer-events-none absolute -right-32 top-1/3 h-96 w-96 rounded-full bg-secondary/10 blur-3xl' />
 
       <div className='container mx-auto px-4'>
-        <div className='flex flex-col items-center gap-12 lg:flex-row lg:gap-16'>
+        <div className='flex flex-col items-center gap-10 md:gap-10 lg:flex-row lg:gap-10 xl:gap-16'>
           {/* Text */}
           <motion.div
             className='flex flex-1 flex-col items-center text-center lg:items-start lg:text-left'
@@ -34,18 +34,18 @@ const HeroSection = () => {
               AI-Powered Business Platform
             </motion.div>
 
-            <h1 className='font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl'>
+            <h1 className='max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl'>
               Create Your Business{' '}
               <span className='gradient-text'>With AI</span>
             </h1>
 
-            <p className='mt-6 max-w-xl text-lg text-muted-foreground md:text-xl'>
+            <p className='mt-5 max-w-2xl text-lg text-muted-foreground md:text-lg lg:text-lg xl:text-xl'>
               Start, run, and grow your business—all in one place. Servix OS
               combines an AI assistant with a complete online office to help you
               launch faster than ever.
             </p>
 
-            <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
+            <div className='mt-7 flex flex-col gap-4 sm:flex-row'>
               <motion.a
                 href='#pricing'
                 whileHover={{ scale: 1.05 }}
@@ -65,7 +65,7 @@ const HeroSection = () => {
             </div>
 
             {/* Social proof */}
-            <div className='mt-10 flex items-center gap-4'>
+            <div className='mt-9 flex items-center gap-4'>
               <div className='flex -space-x-2'>
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div
@@ -84,7 +84,7 @@ const HeroSection = () => {
 
           {/* Hero Image */}
           <motion.div
-            className='flex-1'
+            className='flex w-full flex-1 justify-center'
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
@@ -93,7 +93,7 @@ const HeroSection = () => {
               <Image
                 src={heroImg}
                 alt='Servix OS AI-powered business dashboard showing analytics, invoices, and website builder'
-                className='w-full max-w-2xl rounded-2xl glow-shadow'
+                className='w-full max-w-lg rounded-2xl glow-shadow md:max-w-lg lg:max-w-xl xl:max-w-2xl'
                 priority
               />
             </div>
@@ -102,7 +102,7 @@ const HeroSection = () => {
       </div>
 
       {/* Trusted by */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
@@ -127,7 +127,7 @@ const HeroSection = () => {
             </span>
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 };

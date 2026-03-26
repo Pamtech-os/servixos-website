@@ -55,7 +55,7 @@ const Footer = () => {
             © {new Date().getFullYear()} Servix OS. All rights reserved.
           </p>
           <div className='flex gap-6'>
-            {['Twitter', 'LinkedIn', 'GitHub'].map((s) => (
+            {['Twitter', 'LinkedIn', 'Facebook'].map((s) => (
               <a
                 key={s}
                 href='#'
