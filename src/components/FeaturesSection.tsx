@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -74,7 +76,7 @@ const FeatureCard = ({
       className='group relative rounded-2xl border bg-card p-6 transition-all duration-300 hover:card-shadow-hover md:p-8'
     >
       <div
-        className={`mb-4 inline-flex rounded-xl bg-gradient-to-br ${feature.gradient} p-3`}
+        className={`mb-4 inline-flex rounded-xl bg-linear-to-br ${feature.gradient} p-3`}
       >
         <feature.icon size={24} className='text-primary-foreground' />
       </div>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import servixLogo from '@/assets/servix-logo.png';
 
 const footerLinks = {
@@ -14,11 +15,12 @@ const Footer = () => {
           {/* Brand */}
           <div className='lg:col-span-2'>
             <div className='mb-4 flex items-center gap-2'>
-              <img
+              <Image
                 src={servixLogo}
                 alt='Servix OS'
                 className='h-8 w-8'
-                loading='lazy'
+                width={32}
+                height={32}
               />
               <span className='font-display text-lg font-bold'>Servix OS</span>
             </div>
