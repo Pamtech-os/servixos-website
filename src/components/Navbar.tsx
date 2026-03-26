@@ -1,6 +1,10 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Moon, Sun } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import servixLogo from '@/assets/servix-logo.png';
 
 const navLinks = [
@@ -14,33 +18,27 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('theme');
-    if (
-      stored === 'dark' ||
-      (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-      setDark(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialDark = stored === 'dark' || (!stored && prefersDark);
 
-  const toggleTheme = () => {
-    setDark((prev) => {
-      const next = !prev;
-      document.documentElement.classList.toggle('dark', next);
-      localStorage.setItem('theme', next ? 'dark' : 'light');
-      return next;
-    });
-  };
+    document.documentElement.classList.toggle('dark', initialDark);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const toggleTheme = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    const next = !isDark;
+    document.documentElement.classList.toggle('dark', next);
+    localStorage.setItem('theme', next ? 'dark' : 'light');
+  };
 
   return (
     <motion.header
@@ -52,17 +50,19 @@ const Navbar = () => {
       }`}
     >
       <nav className='container mx-auto flex items-center justify-between px-4 py-3 md:py-4'>
-        <a href='#' className='flex items-center gap-2'>
-          <img
+        <Link href='/' className='flex items-center gap-2'>
+          <Image
             src={servixLogo}
             alt='Servix OS Logo'
             className='h-8 w-8 md:h-10 md:w-10'
-            loading='lazy'
+            width={40}
+            height={40}
+            priority
           />
           <span className='font-display text-lg font-bold md:text-xl'>
             Servix OS
           </span>
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <div className='hidden items-center gap-8 md:flex'>
@@ -80,7 +80,8 @@ const Navbar = () => {
             aria-label='Toggle theme'
             className='rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground'
           >
-            {dark ? <Sun size={18} /> : <Moon size={18} />}
+            <Sun size={18} className='hidden dark:block' />
+            <Moon size={18} className='block dark:hidden' />
           </button>
           <a
             href='#hero'
@@ -97,7 +98,8 @@ const Navbar = () => {
             aria-label='Toggle theme'
             className='rounded-full p-2 text-muted-foreground'
           >
-            {dark ? <Sun size={18} /> : <Moon size={18} />}
+            <Sun size={18} className='hidden dark:block' />
+            <Moon size={18} className='block dark:hidden' />
           </button>
           <button
             onClick={() => setIsOpen(!isOpen)}

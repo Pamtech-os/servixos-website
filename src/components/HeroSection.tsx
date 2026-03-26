@@ -1,5 +1,8 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 import heroImg from '@/assets/hero-illustration.png';
 
 const HeroSection = () => {
@@ -87,11 +90,11 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
           >
             <div className='animate-float'>
-              <img
+              <Image
                 src={heroImg}
                 alt='Servix OS AI-powered business dashboard showing analytics, invoices, and website builder'
                 className='w-full max-w-2xl rounded-2xl glow-shadow'
-                loading='eager'
+                priority
               />
             </div>
           </motion.div>
