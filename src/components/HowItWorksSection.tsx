@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { UserPlus, Wand2, Rocket } from 'lucide-react';
 
+// How it works steps
 const steps = [
   {
     num: '01',
