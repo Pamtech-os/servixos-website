@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Check } from 'lucide-react';
 
 const plans = [
@@ -61,6 +61,16 @@ const plans = [
 const PricingSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>(
+    'monthly',
+  );
+  const isAnnual = billingCycle === 'annual';
+  const yearlyDiscountRate = 0.2;
+
+  const getDisplayedPrice = (monthlyPrice: number) => {
+    if (!isAnnual) return monthlyPrice.toString();
+    return Math.round(monthlyPrice * 12 * (1 - yearlyDiscountRate)).toString();
+  };
 
   return (
     <section id='pricing' className='py-20 md:py-32'>
@@ -81,6 +91,35 @@ const PricingSection = () => {
             Start free. Scale as you grow. No hidden fees.
           </p>
         </motion.div>
+
+        <div className='mb-10 flex justify-center'>
+          <div className='inline-flex rounded-full border bg-card p-1'>
+            <button
+              type='button'
+              onClick={() => setBillingCycle('monthly')}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                !isAnnual
+                  ? 'gradient-bg text-primary-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+              aria-pressed={!isAnnual}
+            >
+              Monthly
+            </button>
+            <button
+              type='button'
+              onClick={() => setBillingCycle('annual')}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                isAnnual
+                  ? 'gradient-bg text-primary-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+              aria-pressed={isAnnual}
+            >
+              Yearly
+            </button>
+          </div>
+        </div>
 
         <div className='mx-auto grid max-w-5xl gap-8 lg:grid-cols-3'>
           {plans.map((plan, i) => (
@@ -110,12 +149,12 @@ const PricingSection = () => {
 
               <div className='my-6 flex items-baseline gap-1'>
                 <span className='font-display text-5xl font-bold'>
-                  ${plan.price}
+                  ${getDisplayedPrice(plan.price)}
                 </span>
                 <span
                   className={`text-sm ${plan.popular ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}
                 >
-                  /month
+                  /{isAnnual ? 'year' : 'month'}
                 </span>
               </div>
 
