@@ -1,18 +1,15 @@
 import Image from 'next/image';
+
 import servixLogo from '@/assets/servix-logo.png';
+import { footerLinkGroups, socialLinks } from '@/content/home';
 
-const footerLinks = {
-  Product: ['Features', 'Pricing', 'How It Works', 'FAQ'],
-  Company: ['About', 'Blog', 'Careers', 'Contact'],
-  Legal: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
-};
+export default function Footer() {
+  const year = new Date().getFullYear();
 
-const Footer = () => {
   return (
     <footer className='border-t bg-card py-16'>
       <div className='container mx-auto px-4'>
         <div className='grid gap-12 md:grid-cols-2 lg:grid-cols-5'>
-          {/* Brand */}
           <div className='lg:col-span-2'>
             <div className='mb-4 flex items-center gap-2'>
               <Image
@@ -26,22 +23,23 @@ const Footer = () => {
             </div>
             <p className='max-w-sm text-sm leading-relaxed text-muted-foreground'>
               The AI-powered platform that helps you start, run, and grow your
-              business—all in one place.
+              business-all in one place.
             </p>
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([heading, links]) => (
-            <div key={heading}>
-              <h4 className='mb-4 font-display text-sm font-bold'>{heading}</h4>
+          {footerLinkGroups.map((group) => (
+            <div key={group.heading}>
+              <h4 className='mb-4 font-display text-sm font-bold'>
+                {group.heading}
+              </h4>
               <ul className='flex flex-col gap-2.5'>
-                {links.map((link) => (
-                  <li key={link}>
+                {group.links.map((link) => (
+                  <li key={link.label}>
                     <a
-                      href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={link.href}
                       className='text-sm text-muted-foreground transition-colors hover:text-foreground'
                     >
-                      {link}
+                      {link.label}
                     </a>
                   </li>
                 ))}
@@ -52,16 +50,16 @@ const Footer = () => {
 
         <div className='mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row'>
           <p className='text-xs text-muted-foreground'>
-            © {new Date().getFullYear()} Servix OS. All rights reserved.
+            © {year} Servix OS. All rights reserved.
           </p>
           <div className='flex gap-6'>
-            {['Twitter', 'LinkedIn', 'Facebook'].map((s) => (
+            {socialLinks.map((social) => (
               <a
-                key={s}
-                href='#'
+                key={social.label}
+                href={social.href}
                 className='text-xs text-muted-foreground transition-colors hover:text-foreground'
               >
-                {s}
+                {social.label}
               </a>
             ))}
           </div>
@@ -69,6 +67,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

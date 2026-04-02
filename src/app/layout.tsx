@@ -1,9 +1,13 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import type { ReactNode } from 'react';
 
 import '@/index.css';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://servixos.com';
+
+const themeInitializerScript =
+  "(()=>{try{const t=localStorage.getItem('theme');const d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d)}catch{}})();";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -94,7 +98,14 @@ export default function RootLayout({
           rel='stylesheet'
         />
       </head>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <Script
+          id='theme-init'
+          strategy='beforeInteractive'
+          dangerouslySetInnerHTML={{ __html: themeInitializerScript }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
