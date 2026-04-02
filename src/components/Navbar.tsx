@@ -1,40 +1,37 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import type { MouseEvent } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import * as m from 'framer-motion/m';
+import { useEffect, useState } from 'react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import servixLogo from '@/assets/servix-logo.png';
 
-const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'FAQ', href: '#faq' },
-];
+import servixLogo from '@/assets/servix-logo.png';
+import { navLinks } from '@/content/home';
+import { useScrollThreshold } from '@/hooks/use-scroll-threshold';
+import { cn } from '@/lib/utils';
 
 const HEADER_OFFSET_FALLBACK = 96;
 const MOBILE_MENU_CLOSE_DELAY_MS = 280;
 
-const Navbar = () => {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useScrollThreshold(20);
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialDark = stored === 'dark' || (!stored && prefersDark);
+    if (!isOpen) return;
 
-    document.documentElement.classList.toggle('dark', initialDark);
-  }, []);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isOpen]);
 
   const toggleTheme = () => {
     const isDark = document.documentElement.classList.contains('dark');
@@ -55,12 +52,13 @@ const Navbar = () => {
 
     const offset = getHeaderOffset();
     const top = target.getBoundingClientRect().top + window.scrollY - offset;
+
     window.history.replaceState(null, '', `#${id}`);
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   };
 
   const handleNavClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
+    event: MouseEvent<HTMLAnchorElement>,
     href: string,
     closeMenu = false,
   ) => {
@@ -82,14 +80,15 @@ const Navbar = () => {
   };
 
   return (
-    <motion.header
+    <m.header
       data-site-header='true'
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass shadow-sm' : 'bg-transparent'
-      }`}
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        scrolled ? 'glass shadow-sm' : 'bg-transparent',
+      )}
     >
       <nav className='container mx-auto flex items-center justify-between px-4 py-3 md:px-5 md:py-4 lg:px-6'>
         <Link href='/' className='flex items-center gap-2 md:gap-2.5'>
@@ -106,7 +105,6 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Desktop nav */}
         <div className='hidden items-center gap-5 lg:flex xl:gap-8'>
           {navLinks.map((link) => (
             <a
@@ -119,6 +117,7 @@ const Navbar = () => {
             </a>
           ))}
           <button
+            type='button'
             onClick={toggleTheme}
             aria-label='Toggle theme'
             className='rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground'
@@ -135,9 +134,9 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Mobile controls */}
         <div className='flex items-center gap-2 lg:hidden'>
           <button
+            type='button'
             onClick={toggleTheme}
             aria-label='Toggle theme'
             className='rounded-full p-2 text-muted-foreground'
@@ -146,8 +145,10 @@ const Navbar = () => {
             <Moon size={18} className='block dark:hidden' />
           </button>
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            type='button'
+            onClick={() => setIsOpen((prev) => !prev)}
             aria-label='Toggle menu'
+            aria-expanded={isOpen}
             className='rounded-full p-2 text-foreground'
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -155,19 +156,19 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
+      <AnimatePresence initial={false}>
+        {isOpen ? (
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.24, ease: 'easeOut' }}
             className='glass overflow-hidden lg:hidden'
           >
             <div className='flex flex-col gap-4 px-6 py-6'>
               {navLinks.map((link) => (
                 <a
-                  key={link.href}
+                  key={`mobile-${link.href}`}
                   href={link.href}
                   onClick={(event) => handleNavClick(event, link.href, true)}
                   className='text-base font-medium text-muted-foreground transition-colors hover:text-foreground'
@@ -183,11 +184,9 @@ const Navbar = () => {
                 Get Started
               </a>
             </div>
-          </motion.div>
-        )}
+          </m.div>
+        ) : null}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
-};
-
-export default Navbar;
+}
