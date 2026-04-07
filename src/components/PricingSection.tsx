@@ -9,6 +9,7 @@ import { pricingPlans } from '@/content/home';
 import { cn } from '@/lib/utils';
 
 const YEARLY_DISCOUNT_RATE = 0.2;
+const YEARLY_DISCOUNT_PERCENT = YEARLY_DISCOUNT_RATE * 100;
 
 type BillingCycle = 'monthly' | 'annual';
 
@@ -72,6 +73,19 @@ export default function PricingSection() {
             </button>
           </div>
         </div>
+        <div
+          className={cn(
+            'overflow-hidden text-center transition-all duration-300 ease-out',
+            isAnnual
+              ? 'mb-8 max-h-10 translate-y-0 opacity-100'
+              : 'mb-0 max-h-0 -translate-y-1 opacity-0',
+          )}
+          aria-hidden={!isAnnual}
+        >
+          <p className='text-sm font-semibold text-secondary'>
+            Save {YEARLY_DISCOUNT_PERCENT}% with annual billing
+          </p>
+        </div>
 
         <div className='mx-auto grid max-w-5xl gap-8 lg:grid-cols-3'>
           {pricingPlans.map((plan, index) => (
@@ -121,6 +135,18 @@ export default function PricingSection() {
                   /{isAnnual ? 'year' : 'month'}
                 </span>
               </div>
+              {isAnnual ? (
+                <p
+                  className={cn(
+                    '-mt-3 mb-6 text-sm font-medium',
+                    plan.popular
+                      ? 'text-primary-foreground/80'
+                      : 'text-muted-foreground',
+                  )}
+                >
+                  {YEARLY_DISCOUNT_PERCENT}% off annual plan
+                </p>
+              ) : null}
 
               <ul className='mb-8 flex flex-1 flex-col gap-3'>
                 {plan.features.map((feature) => (
