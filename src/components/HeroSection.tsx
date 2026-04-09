@@ -4,7 +4,8 @@ import * as m from 'framer-motion/m';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 
-import heroImg from '@/assets/hero-illustration.png';
+import heroDashboardDark from '@/assets/hero-dashboard-dark.png';
+import heroDashboardLight from '@/assets/hero-dashboard-light.png';
 
 const fadeUp = {
   initial: { opacity: 0, y: 32 },
@@ -154,11 +155,23 @@ export default function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, delay: 0.25, ease: 'easeOut' }}
           >
-            <div className='animate-float'>
+            <div className='animate-float relative flex items-center justify-center'>
               <Image
-                src={heroImg}
-                alt='Servix OS AI-powered business dashboard showing analytics, invoices, and website builder'
-                className='w-full max-w-lg rounded-2xl glow-shadow md:max-w-lg lg:max-w-xl xl:max-w-2xl'
+                src={heroDashboardLight}
+                alt='Servix OS light dashboard preview'
+                width={1304}
+                height={931}
+                sizes='(max-width: 768px) 92vw, (max-width: 1280px) 42vw, 40vw'
+                className='relative z-10 w-full max-w-lg rounded-2xl glow-shadow dark:hidden md:max-w-lg lg:max-w-xl xl:max-w-2xl'
+                priority
+              />
+              <Image
+                src={heroDashboardDark}
+                alt='Servix OS dark dashboard preview'
+                width={1310}
+                height={931}
+                sizes='(max-width: 768px) 92vw, (max-width: 1280px) 42vw, 40vw'
+                className='relative z-10 hidden w-full max-w-lg rounded-2xl glow-shadow dark:block md:max-w-lg lg:max-w-xl xl:max-w-2xl'
                 priority
               />
             </div>
