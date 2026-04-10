@@ -36,8 +36,11 @@ const heroBubbles = [
 
 const HERO_SLIDE_INTERVAL_MS = 3000;
 const HERO_ROTATION_DEGREES = [-2.8, -2.1, -1.4, 1.4, 2.1, 2.8] as const;
+type HeroRotation = (typeof HERO_ROTATION_DEGREES)[number];
+const DEFAULT_LIGHT_ROTATION = HERO_ROTATION_DEGREES[2];
+const DEFAULT_DARK_ROTATION = HERO_ROTATION_DEGREES[5];
 
-const getRandomRotation = () =>
+const getRandomRotation = (): HeroRotation =>
   HERO_ROTATION_DEGREES[
     Math.floor(Math.random() * HERO_ROTATION_DEGREES.length)
   ];
@@ -78,8 +81,10 @@ export default function HeroSection() {
     darkDashboardSlides.length
   );
   const [slideIndex, setSlideIndex] = useState(0);
-  const [lightRotation, setLightRotation] = useState(() => getRandomRotation());
-  const [darkRotation, setDarkRotation] = useState(() => getRandomRotation());
+  const [lightRotation, setLightRotation] =
+    useState<HeroRotation>(DEFAULT_LIGHT_ROTATION);
+  const [darkRotation, setDarkRotation] =
+    useState<HeroRotation>(DEFAULT_DARK_ROTATION);
 
   useEffect(() => {
     if (slideCount <= 1) {
