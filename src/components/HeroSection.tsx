@@ -1,10 +1,18 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
+import { AnimatePresence } from 'framer-motion';
 import * as m from 'framer-motion/m';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 
-import heroImg from '@/assets/hero-illustration.png';
+import heroDashboardDark from '@/assets/hero-dashboard-dark.png';
+import heroDashboardDarkInsights from '@/assets/hero-dashboard-dark-insights.png';
+import heroDashboardDarkPayments from '@/assets/hero-dashboard-dark-payments.png';
+import heroDashboardLight from '@/assets/hero-dashboard-light.png';
+import heroDashboardLightJobs from '@/assets/hero-dashboard-light-jobs.png';
+import heroDashboardLightTeams from '@/assets/hero-dashboard-light-teams.png';
 
 const fadeUp = {
   initial: { opacity: 0, y: 32 },
@@ -26,7 +34,78 @@ const heroBubbles = [
   { size: 95, top: '78%', right: '24%', delay: 1, duration: 6.8, driftX: 14 },
 ];
 
+const HERO_SLIDE_INTERVAL_MS = 3000;
+const HERO_ROTATION_DEGREES = [-2.8, -2.1, -1.4, 1.4, 2.1, 2.8] as const;
+type HeroRotation = (typeof HERO_ROTATION_DEGREES)[number];
+const DEFAULT_LIGHT_ROTATION = HERO_ROTATION_DEGREES[2];
+const DEFAULT_DARK_ROTATION = HERO_ROTATION_DEGREES[5];
+
+const getRandomRotation = (): HeroRotation =>
+  HERO_ROTATION_DEGREES[
+    Math.floor(Math.random() * HERO_ROTATION_DEGREES.length)
+  ];
+
+const lightDashboardSlides = [
+  {
+    src: heroDashboardLight,
+    alt: 'Servix OS light invoices dashboard preview',
+  },
+  {
+    src: heroDashboardLightJobs,
+    alt: 'Servix OS light jobs dashboard preview',
+  },
+  {
+    src: heroDashboardLightTeams,
+    alt: 'Servix OS light teams dashboard preview',
+  },
+];
+
+const darkDashboardSlides = [
+  {
+    src: heroDashboardDark,
+    alt: 'Servix OS dark dashboard preview',
+  },
+  {
+    src: heroDashboardDarkPayments,
+    alt: 'Servix OS dark payments dashboard preview',
+  },
+  {
+    src: heroDashboardDarkInsights,
+    alt: 'Servix OS dark AI insights dashboard preview',
+  },
+];
+
 export default function HeroSection() {
+  const slideCount = Math.min(
+    lightDashboardSlides.length,
+    darkDashboardSlides.length
+  );
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [lightRotation, setLightRotation] =
+    useState<HeroRotation>(DEFAULT_LIGHT_ROTATION);
+  const [darkRotation, setDarkRotation] =
+    useState<HeroRotation>(DEFAULT_DARK_ROTATION);
+
+  useEffect(() => {
+    if (slideCount <= 1) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setSlideIndex((currentIndex) => (currentIndex + 1) % slideCount);
+      setLightRotation(getRandomRotation());
+      setDarkRotation(getRandomRotation());
+    }, HERO_SLIDE_INTERVAL_MS);
+
+    return () => window.clearInterval(intervalId);
+  }, [slideCount]);
+
+  const activeSlideIndex = slideCount > 0 ? slideIndex % slideCount : 0;
+  const activeLightSlide =
+    lightDashboardSlides[activeSlideIndex] ?? lightDashboardSlides[0];
+  const activeDarkSlide =
+    darkDashboardSlides[activeSlideIndex] ?? darkDashboardSlides[0];
+
   return (
     <section
       id='hero'
@@ -154,13 +233,64 @@ export default function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.75, delay: 0.25, ease: 'easeOut' }}
           >
-            <div className='animate-float'>
-              <Image
-                src={heroImg}
-                alt='Servix OS AI-powered business dashboard showing analytics, invoices, and website builder'
-                className='w-full max-w-lg rounded-2xl glow-shadow md:max-w-lg lg:max-w-xl xl:max-w-2xl'
-                priority
-              />
+            <div className='animate-float relative w-full max-w-lg md:max-w-lg lg:max-w-xl xl:max-w-2xl'>
+              <AnimatePresence mode='wait' initial={false}>
+                <m.div
+                  key={`light-slide-${activeSlideIndex}`}
+                  className='dark:hidden'
+                  initial={{
+                    opacity: 0,
+                    y: 14,
+                    scale: 0.985,
+                    rotate: lightRotation + (lightRotation > 0 ? 0.8 : -0.8),
+                  }}
+                  animate={{ opacity: 1, y: 0, scale: 1, rotate: lightRotation }}
+                  exit={{
+                    opacity: 0,
+                    y: -12,
+                    scale: 1.015,
+                    rotate: lightRotation * -0.35,
+                  }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <Image
+                    src={activeLightSlide.src}
+                    alt={activeLightSlide.alt}
+                    sizes='(max-width: 768px) 92vw, (max-width: 1280px) 42vw, 40vw'
+                    className='relative z-10 w-full rounded-2xl glow-shadow'
+                    priority
+                  />
+                </m.div>
+              </AnimatePresence>
+
+              <AnimatePresence mode='wait' initial={false}>
+                <m.div
+                  key={`dark-slide-${activeSlideIndex}`}
+                  className='hidden dark:block'
+                  initial={{
+                    opacity: 0,
+                    y: 14,
+                    scale: 0.985,
+                    rotate: darkRotation + (darkRotation > 0 ? 0.8 : -0.8),
+                  }}
+                  animate={{ opacity: 1, y: 0, scale: 1, rotate: darkRotation }}
+                  exit={{
+                    opacity: 0,
+                    y: -12,
+                    scale: 1.015,
+                    rotate: darkRotation * -0.35,
+                  }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                >
+                  <Image
+                    src={activeDarkSlide.src}
+                    alt={activeDarkSlide.alt}
+                    sizes='(max-width: 768px) 92vw, (max-width: 1280px) 42vw, 40vw'
+                    className='relative z-10 w-full rounded-2xl glow-shadow'
+                    priority
+                  />
+                </m.div>
+              </AnimatePresence>
             </div>
           </m.div>
         </div>
