@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     'online office',
     'small business tools',
     'entrepreneur software',
+    'Servix OS',
+    'servixos',
+    'Servix os',
+    'servix os',
   ],
   alternates: {
     canonical: '/',
@@ -65,7 +69,10 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32' },
+      { url: '/favicon.png', type: 'image/png', sizes: '512x512' },
+    ],
     shortcut: '/favicon.ico',
     apple: '/favicon.png',
   },
