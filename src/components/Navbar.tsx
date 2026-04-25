@@ -33,6 +33,7 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isOpen]);
 
+  // Theme declaration
   const toggleTheme = () => {
     const isDark = document.documentElement.classList.contains('dark');
     const next = !isDark;
@@ -60,7 +61,7 @@ export default function Navbar() {
   const handleNavClick = (
     event: MouseEvent<HTMLAnchorElement>,
     href: string,
-    closeMenu = false,
+    closeMenu = false
   ) => {
     if (!href.startsWith('#')) {
       if (closeMenu) setIsOpen(false);
@@ -87,7 +88,7 @@ export default function Navbar() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled ? 'glass shadow-sm' : 'bg-transparent',
+        scrolled ? 'glass shadow-sm' : 'bg-transparent'
       )}
     >
       <nav className='container mx-auto flex items-center justify-between px-4 py-3 md:px-5 md:py-4 lg:px-6'>
