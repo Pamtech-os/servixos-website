@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { AnimatePresence } from 'framer-motion';
 import * as m from 'framer-motion/m';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Sparkles, UserCheck } from 'lucide-react';
 import Image from 'next/image';
 
 import heroDashboardDark from '@/assets/hero-dashboard-dark.png';
@@ -162,7 +162,7 @@ export default function HeroSection() {
               className='mb-6 flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary'
             >
               <Sparkles size={14} />
-              AI-Powered Business Platform
+              AI Entrepreneurship Operating System
             </m.div>
 
             <m.h1
@@ -171,8 +171,8 @@ export default function HeroSection() {
               animate={fadeUp.animate}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Create Your Business{' '}
-              <span className='gradient-text'>With AI</span>
+              Start, Run and Grow a Business{' '}
+              <span className='gradient-text'>With AI by Your Side</span>
             </m.h1>
 
             <m.p
@@ -181,9 +181,10 @@ export default function HeroSection() {
               animate={fadeUp.animate}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Start, run, and grow your business-all in one place. Servix OS
-              combines an AI assistant with a complete online office to help you
-              launch faster than ever.
+              Servix OS helps you discover business opportunities, build your
+              business, understand what needs to happen next, and take
+              action-all through one connected AI-powered platform, even if you
+              have little to no business experience.
             </m.p>
 
             <div className='mt-7 flex flex-col gap-4 sm:flex-row'>
@@ -196,34 +197,33 @@ export default function HeroSection() {
                 Get Started Free <ArrowRight size={18} />
               </m.a>
               <m.a
-                href='#how-it-works'
+                href='#ai-engine'
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
                 className='inline-flex items-center justify-center gap-2 rounded-full border bg-card px-8 py-3.5 text-base font-semibold transition-shadow hover:card-shadow-hover'
               >
-                See How It Works
+                See the AI Engine in Action
               </m.a>
             </div>
 
             <m.div
-              className='mt-9 flex items-center gap-4'
+              className='mt-9 flex flex-wrap items-center gap-x-6 gap-y-3'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.45 }}
             >
-              <div className='flex -space-x-2'>
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div
-                    key={i}
-                    className='h-8 w-8 rounded-full border-2 border-background gradient-bg'
-                    style={{ opacity: 0.6 + i * 0.08 }}
-                  />
-                ))}
+              <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                <UserCheck size={16} className='text-primary' />
+                No business experience required
               </div>
-              <p className='text-sm text-muted-foreground'>
-                <span className='font-semibold text-foreground'>2,000+</span>{' '}
-                businesses launched
-              </p>
+              <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                <Sparkles size={16} className='text-primary' />
+                AI-guided every step
+              </div>
+              <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                <ShieldCheck size={16} className='text-primary' />
+                You stay in control
+              </div>
             </m.div>
           </m.div>
 
