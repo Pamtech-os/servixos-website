@@ -30,9 +30,9 @@ export default function HowItWorksSection() {
         >
           <SectionHeading
             badge='How It Works'
-            title='Three Steps to'
-            highlight='Launch Your Business'
-            description='From idea to live business in minutes, not months.'
+            title='Getting Started Is'
+            highlight='Simple'
+            description='From first step to daily operations-with Servix OS guiding the way.'
             badgeClassName='bg-accent/10 text-accent'
             className='mb-16'
           />

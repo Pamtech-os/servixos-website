@@ -25,7 +25,7 @@ export default function TestimonialsSection() {
             badge='Testimonials'
             title='Loved by'
             highlight='Entrepreneurs'
-            description='See what business owners are saying about Servix OS.'
+            description='See what people building their businesses with Servix OS are saying.'
             badgeClassName='bg-primary/10 text-primary'
             className='mb-16'
           />

@@ -4,63 +4,210 @@ export type NavLink = {
 };
 
 export const navLinks: NavLink[] = [
-  { label: 'Features', href: '#features' },
+  { label: 'AI Engine', href: '#ai-engine' },
+  { label: 'Platform', href: '#journey' },
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Pricing', href: '#pricing' },
-  { label: 'Testimonials', href: '#testimonials' },
   { label: 'FAQ', href: '#faq' },
 ];
 
-export type Feature = {
-  icon: 'sparkles' | 'globe' | 'building2' | 'fileText' | 'users' | 'trendingUp';
+export type FeatureStatus = 'available' | 'in-development' | 'planned';
+
+export type AIEngineStep = {
+  icon: 'brain' | 'listChecks' | 'compass' | 'zap' | 'activity' | 'refreshCw';
   title: string;
   description: string;
-  gradient: string;
+  status: FeatureStatus;
 };
 
-export const features: Feature[] = [
+export const aiEngineSteps: AIEngineStep[] = [
   {
-    icon: 'sparkles',
-    title: 'AI-Driven Business Setup',
+    icon: 'brain',
+    title: 'Understand',
     description:
-      'Create your business automatically with AI. Answer a few questions and watch your business come to life.',
-    gradient: 'from-primary to-secondary',
+      'Learns the details of your business-what you sell, who you serve, and how you operate.',
+    status: 'available',
   },
   {
-    icon: 'globe',
-    title: 'AI Website Builder',
+    icon: 'listChecks',
+    title: 'Prioritize',
     description:
-      'Build your professional service website instantly. No coding required-just beautiful, ready-to-launch sites.',
-    gradient: 'from-accent to-primary',
+      'Looks at your operations and surfaces what actually needs your attention right now.',
+    status: 'available',
   },
   {
-    icon: 'building2',
-    title: 'Online Office',
+    icon: 'compass',
+    title: 'Guide',
     description:
-      'Everything your business needs in one place with AI. Manage operations, team, and growth from a single dashboard.',
-    gradient: 'from-secondary to-accent',
+      "Recommends the next step in plain language, so you're never stuck wondering what to do.",
+    status: 'available',
   },
   {
-    icon: 'fileText',
-    title: 'Contracts & Invoices',
+    icon: 'zap',
+    title: 'Execute',
     description:
-      'Automatically generated professional documents. Send invoices and contracts in seconds, not hours.',
-    gradient: 'from-primary to-accent',
+      'Drafts or prepares the action for you-an invoice follow-up, a contract, a next step-ready for your approval.',
+    status: 'available',
   },
   {
-    icon: 'users',
-    title: 'Client Management',
+    icon: 'activity',
+    title: 'Track',
     description:
-      'Track and manage all your customers effortlessly. Build relationships that drive repeat business.',
-    gradient: 'from-accent to-secondary',
+      'Keeps an eye on what happens after action is taken-payments, replies, and results.',
+    status: 'available',
   },
   {
-    icon: 'trendingUp',
-    title: 'AI Insights & Suggestions',
+    icon: 'refreshCw',
+    title: 'Improve',
     description:
-      'Know how your business is doing and get actionable recommendations to improve and grow.',
-    gradient: 'from-secondary to-primary',
+      'Learns from outcomes over time to make sharper recommendations the next time around.',
+    status: 'in-development',
   },
+];
+
+export type JourneyItem = {
+  title: string;
+  description: string;
+  status: FeatureStatus;
+};
+
+export type JourneyStage = {
+  key: 'discover' | 'run' | 'grow';
+  badge: string;
+  title: string;
+  description: string;
+  items: JourneyItem[];
+};
+
+export const journeyStages: JourneyStage[] = [
+  {
+    key: 'discover',
+    badge: 'Stage 1',
+    title: 'Discover & Start',
+    description:
+      "Explore business ideas, shape a concept, and set up your foundations-even if you're starting from zero.",
+    items: [
+      {
+        title: 'AI Business Discovery',
+        description:
+          'Explore ideas and opportunities based on your interests, skills, and what the market is asking for.',
+        status: 'available',
+      },
+      {
+        title: 'Guided Business Setup',
+        description:
+          'Answer a few questions and get a working business foundation-structure, basics, and a plan to follow.',
+        status: 'available',
+      },
+      {
+        title: 'AI Website Builder',
+        description:
+          'Launch a professional, ready-to-go website without writing code.',
+        status: 'available',
+      },
+    ],
+  },
+  {
+    key: 'run',
+    badge: 'Stage 2',
+    title: 'Run',
+    description:
+      'Keep operations, customers, jobs, invoices, and contracts connected in one workspace-with daily AI guidance.',
+    items: [
+      {
+        title: 'Online Office',
+        description:
+          'Manage jobs, customers, and day-to-day operations from a single workspace.',
+        status: 'available',
+      },
+      {
+        title: 'Invoicing & Contracts',
+        description:
+          'Create and send professional invoices and contracts in minutes.',
+        status: 'available',
+      },
+      {
+        title: 'Client & Team Management',
+        description:
+          'Track customers, collaborate with your team, and stay organized as you grow.',
+        status: 'available',
+      },
+    ],
+  },
+  {
+    key: 'grow',
+    badge: 'Stage 3',
+    title: 'Grow',
+    description:
+      'Spot opportunities, sharpen performance, attract more customers, and make better decisions-with AI pointing the way.',
+    items: [
+      {
+        title: 'AI Insights & Suggestions',
+        description:
+          'Understand how your business is doing and get recommended next steps.',
+        status: 'available',
+      },
+      {
+        title: 'AI Pricing & Contract Assistance',
+        description:
+          'Get help pricing jobs and generating contracts that protect you.',
+        status: 'available',
+      },
+      {
+        title: 'Ads Manager',
+        description:
+          'Plan and manage customer-acquisition campaigns from inside Servix OS.',
+        status: 'planned',
+      },
+    ],
+  },
+];
+
+export type AIDemoStep = {
+  num: string;
+  title: string;
+  description: string;
+};
+
+export const aiDemoSteps: AIDemoStep[] = [
+  {
+    num: '01',
+    title: 'Identify',
+    description: 'Servix OS notices an invoice is overdue.',
+  },
+  {
+    num: '02',
+    title: 'Explain',
+    description:
+      "It explains why it matters-cash flow impact, how late it is, and the customer's history.",
+  },
+  {
+    num: '03',
+    title: 'Prepare',
+    description: 'It drafts a friendly follow-up message to the customer, ready to send.',
+  },
+  {
+    num: '04',
+    title: 'Approve',
+    description:
+      "You review it, make any edits, and approve it-you're always the one in control.",
+  },
+  {
+    num: '05',
+    title: 'Track',
+    description: 'Once sent, Servix OS tracks whether the customer responded or paid.',
+  },
+];
+
+export type BeginnerPoint = {
+  text: string;
+};
+
+export const beginnerFrictionPoints: BeginnerPoint[] = [
+  { text: "I don't know what business to start" },
+  { text: "I don't know where to begin" },
+  { text: "I'm afraid of making a costly mistake" },
+  { text: "I don't know what to do next, day to day" },
 ];
 
 export type HowItWorksStep = {
@@ -74,23 +221,23 @@ export const howItWorksSteps: HowItWorksStep[] = [
   {
     num: '01',
     icon: 'userPlus',
-    title: 'Sign Up & Tell Us About Your Business',
+    title: 'Tell Servix OS About You',
     description:
-      'Create your account in seconds. Answer a few simple questions about what you want to build.',
+      'Create your account in seconds and share a bit about yourself or your business idea-no jargon required.',
   },
   {
     num: '02',
     icon: 'wand2',
-    title: 'AI Builds Everything For You',
+    title: 'Get Your Plan & Setup',
     description:
-      'Our AI creates your business setup, website, documents, and workflows-automatically.',
+      'Servix OS helps shape a plan and sets up your foundation-website, documents, and workflows-ready for you to review.',
   },
   {
     num: '03',
     icon: 'rocket',
-    title: 'Launch & Grow With AI Support',
+    title: 'Run and Grow With Guidance',
     description:
-      'Go live instantly. Your AI assistant helps you manage operations, clients, and growth every day.',
+      'Go live and keep going. Every day, your AI engine highlights what matters and helps you act on it.',
   },
 ];
 
@@ -167,13 +314,13 @@ export const testimonials: Testimonial[] = [
   {
     name: 'Sarah Chen',
     role: 'Founder, BrightPath Coaching',
-    text: 'Servix OS helped me launch my coaching business in a single afternoon. The AI set up everything-website, invoices, client portal. I was blown away.',
+    text: 'Servix OS helped me launch my coaching business in a single afternoon. The AI set up everything-website, invoices, client portal.',
     rating: 5,
   },
   {
     name: 'Marcus Johnson',
     role: 'E-Commerce Seller',
-    text: 'I used to juggle Shopify, QuickBooks, and three other tools. Now everything is in one place. The AI suggestions actually helped me double my revenue.',
+    text: 'I used to juggle Shopify, QuickBooks, and three other tools. Now everything is in one place, and the AI suggestions help me make smarter calls about where to spend my time and money.',
     rating: 5,
   },
   {
@@ -185,7 +332,7 @@ export const testimonials: Testimonial[] = [
   {
     name: 'David Kim',
     role: 'CEO, GrowthStack Agency',
-    text: "We moved our entire team to Servix OS. The online office and AI insights save us at least 15 hours a week. Best decision we've made.",
+    text: "We moved our entire team to Servix OS. The online office and AI insights save our team real time every week on the operational work that used to eat our days.",
     rating: 5,
   },
 ];
@@ -198,31 +345,35 @@ export type FAQ = {
 export const faqs: FAQ[] = [
   {
     q: 'What is Servix OS?',
-    a: 'Servix OS platform is an AI-powered system that helps you start, run, and grow a business-all in one place. It combines an online office with an AI assistant that helps manage operations, customers, and growth.',
+    a: 'Servix OS is an AI entrepreneurship platform. Whether you already run a business or are still deciding what to build, it helps you discover opportunities, start your business, run day-to-day operations, and grow-all with one connected AI engine guiding you along the way.',
+  },
+  {
+    q: "I don't know what business to start-can Servix OS still help?",
+    a: "Yes. Servix OS is designed to help you explore ideas and opportunities before you've decided what to build, not just run a business you already have.",
   },
   {
     q: 'How is this different from Shopify or Amazon?',
-    a: 'Unlike Shopify (which helps you build a store) or Amazon (which helps you sell products), our platform helps you run the entire business with AI support-from setup to daily operations and decision-making.',
+    a: 'Unlike Shopify (which helps you build a store) or Amazon (which helps you sell products), Servix OS helps you run the entire business with AI support-from discovering an idea to daily operations and decision-making.',
   },
   {
     q: 'Who is this for?',
-    a: 'Beginners with no business experience, entrepreneurs who want to save time, service business owners, e-commerce sellers, freelancers, and small teams.',
+    a: 'People who want to become entrepreneurs but don’t know where to start, as well as existing service business owners, e-commerce sellers, freelancers, and small teams who want to save time.',
   },
   {
     q: 'Do I need business experience to use this?',
-    a: 'No. The platform is designed so that anyone can start and run a business, even with little to no prior experience.',
+    a: 'No. Servix OS is designed so that anyone can start and run a business, even with little to no prior experience.',
   },
   {
-    q: 'What does the AI actually do?',
-    a: 'Your AI helps you: set up your business, manage tasks and operations, suggest pricing and strategies, track performance, answer questions and guide decisions.',
+    q: 'What does the AI engine actually do?',
+    a: 'Your AI engine understands your business, prioritizes what needs attention, guides you on next steps, helps prepare actions like follow-ups or contracts, tracks the results, and is continually being improved to learn from outcomes over time.',
   },
   {
     q: 'Is the AI running my business completely?',
-    a: 'No. You are always in control. The AI acts like a COO or advisor, helping you make smarter and faster decisions.',
+    a: 'No. You are always in control. The AI acts like a guide or advisor, helping you make smarter and faster decisions.',
   },
   {
     q: "Can I override the AI's decisions?",
-    a: 'Yes. You can edit, approve, or ignore any AI suggestion at any time.',
+    a: 'Yes. You can edit, approve, or ignore any AI suggestion or draft at any time.',
   },
   {
     q: 'Can I start an online store on this platform?',
@@ -230,7 +381,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: 'Does it help me find products to sell?',
-    a: 'Yes. The platform can suggest product ideas, trends, and opportunities to help you get started faster.',
+    a: 'Yes. Servix OS can suggest product ideas, trends, and opportunities to help you get started faster.',
   },
   {
     q: 'Does it handle orders and customers?',
@@ -250,7 +401,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: 'Is there a free trial?',
-    a: 'Yes. You can try the platform before committing to a paid plan.',
+    a: 'Yes. You can try Servix OS before committing to a paid plan.',
   },
   {
     q: 'Is my business data secure?',
@@ -262,15 +413,11 @@ export const faqs: FAQ[] = [
   },
   {
     q: 'How do I get started?',
-    a: 'Simply sign up, follow the guided setup, and the AI will help you build and launch your business step by step.',
+    a: 'Simply sign up, follow the guided setup, and Servix OS will help you shape and launch your business step by step.',
   },
   {
-    q: 'How long does it take to launch a business?',
-    a: 'You can get started in minutes and launch much faster than traditional methods, depending on your setup.',
-  },
-  {
-    q: 'What makes this platform unique?',
-    a: 'Most platforms give you tools. We give you a system that helps run your business with you.',
+    q: 'What makes Servix OS unique?',
+    a: 'Most platforms give you tools. Servix OS gives you a single AI engine that understands your business and helps you run it-from your first idea to day-to-day growth.',
   },
 ];
 
@@ -286,7 +433,8 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     heading: 'Product',
     links: [
-      { label: 'Features', href: '#features' },
+      { label: 'AI Engine', href: '#ai-engine' },
+      { label: 'Platform', href: '#journey' },
       { label: 'Pricing', href: '#pricing' },
       { label: 'How It Works', href: '#how-it-works' },
       { label: 'FAQ', href: '#faq' },
@@ -324,7 +472,7 @@ export const homeStructuredData = {
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web',
   description:
-    'AI-powered platform that helps you start, run, and grow a business in one place.',
+    'AI entrepreneurship platform that helps you discover a business idea, start, run, and grow a business-all in one place.',
   offers: [
     {
       '@type': 'Offer',

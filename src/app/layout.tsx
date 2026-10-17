@@ -12,15 +12,16 @@ const themeInitializerScript =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Servix OS - Create Your Business With AI',
+    default: 'Servix OS - Start, Run and Grow a Business With AI',
     template: '%s | Servix OS',
   },
   description:
-    'Servix OS is an AI-powered platform that helps entrepreneurs start, run, and grow a business with automated setup, websites, documents, and online office tools.',
+    'Servix OS is an AI entrepreneurship platform that helps you discover a business idea, start your business, run day-to-day operations, and grow-all through one connected AI engine.',
   keywords: [
-    'AI business platform',
+    'AI entrepreneurship platform',
     'start a business',
-    'business automation',
+    'business idea generator',
+    'AI business platform',
     'AI website builder',
     'online office',
     'small business tools',
@@ -34,9 +35,9 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Servix OS - Create Your Business With AI',
+    title: 'Servix OS - Start, Run and Grow a Business With AI',
     description:
-      'Launch and grow your business faster with AI-powered setup, website creation, invoicing, and operations in one platform.',
+      'Discover a business idea, start your business, and run and grow it-guided by one connected AI engine, even with little to no business experience.',
     url: '/',
     siteName: 'Servix OS',
     locale: 'en_US',
@@ -52,9 +53,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Servix OS - Create Your Business With AI',
+    title: 'Servix OS - Start, Run and Grow a Business With AI',
     description:
-      'AI-powered business platform for setup, websites, invoicing, clients, and growth.',
+      'The AI engine that helps you discover, start, run, and grow a business-from your first idea to day-to-day operations.',
     images: ['/favicon.png'],
   },
   robots: {
