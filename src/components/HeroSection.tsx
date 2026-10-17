@@ -41,9 +41,7 @@ const DEFAULT_LIGHT_ROTATION = HERO_ROTATION_DEGREES[2];
 const DEFAULT_DARK_ROTATION = HERO_ROTATION_DEGREES[5];
 
 const getRandomRotation = (): HeroRotation =>
-  HERO_ROTATION_DEGREES[
-    Math.floor(Math.random() * HERO_ROTATION_DEGREES.length)
-  ];
+  HERO_ROTATION_DEGREES[Math.floor(Math.random() * HERO_ROTATION_DEGREES.length)];
 
 const lightDashboardSlides = [
   {
@@ -76,15 +74,10 @@ const darkDashboardSlides = [
 ];
 
 export default function HeroSection() {
-  const slideCount = Math.min(
-    lightDashboardSlides.length,
-    darkDashboardSlides.length
-  );
+  const slideCount = Math.min(lightDashboardSlides.length, darkDashboardSlides.length);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [lightRotation, setLightRotation] =
-    useState<HeroRotation>(DEFAULT_LIGHT_ROTATION);
-  const [darkRotation, setDarkRotation] =
-    useState<HeroRotation>(DEFAULT_DARK_ROTATION);
+  const [lightRotation, setLightRotation] = useState<HeroRotation>(DEFAULT_LIGHT_ROTATION);
+  const [darkRotation, setDarkRotation] = useState<HeroRotation>(DEFAULT_DARK_ROTATION);
 
   useEffect(() => {
     if (slideCount <= 1) {
@@ -101,10 +94,8 @@ export default function HeroSection() {
   }, [slideCount]);
 
   const activeSlideIndex = slideCount > 0 ? slideIndex % slideCount : 0;
-  const activeLightSlide =
-    lightDashboardSlides[activeSlideIndex] ?? lightDashboardSlides[0];
-  const activeDarkSlide =
-    darkDashboardSlides[activeSlideIndex] ?? darkDashboardSlides[0];
+  const activeLightSlide = lightDashboardSlides[activeSlideIndex] ?? lightDashboardSlides[0];
+  const activeDarkSlide = darkDashboardSlides[activeSlideIndex] ?? darkDashboardSlides[0];
 
   return (
     <section
@@ -181,10 +172,9 @@ export default function HeroSection() {
               animate={fadeUp.animate}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Servix OS helps you discover business opportunities, build your
-              business, understand what needs to happen next, and take
-              action-all through one connected AI-powered platform, even if you
-              have little to no business experience.
+              Servix OS helps you discover business opportunities, build your business, understand
+              what needs to happen next, and take action-all through one connected AI-powered
+              platform, even if you have little to no business experience.
             </m.p>
 
             <div className='mt-7 flex flex-col gap-4 sm:flex-row'>
@@ -194,7 +184,7 @@ export default function HeroSection() {
                 whileTap={{ scale: 0.97 }}
                 className='gradient-bg glow-shadow inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-base font-semibold text-primary-foreground'
               >
-                Get Started Free <ArrowRight size={18} />
+                Get Started <ArrowRight size={18} />
               </m.a>
               <m.a
                 href='#ai-engine'
