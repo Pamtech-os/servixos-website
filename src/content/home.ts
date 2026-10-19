@@ -11,7 +11,7 @@ export const navLinks: NavLink[] = [
   { label: 'FAQ', href: '#faq' },
 ];
 
-export type FeatureStatus = 'available' | 'in-development' | 'planned';
+export type FeatureStatus = 'available' | 'in-development' | 'planned' | 'prototype';
 
 export type AIEngineStep = {
   icon: 'brain' | 'listChecks' | 'compass' | 'zap' | 'activity' | 'refreshCw';
@@ -196,6 +196,71 @@ export const aiDemoSteps: AIDemoStep[] = [
     num: '05',
     title: 'Track',
     description: 'Once sent, Servix OS tracks whether the customer responded or paid.',
+  },
+];
+
+export type SuggestionStage = {
+  key: 'suggested' | 'reviewing' | 'executing' | 'tracked';
+  icon: 'lightbulb' | 'eye' | 'loader' | 'checkCircle';
+  label: string;
+  caption: string;
+};
+
+export const suggestionLifecycleStages: SuggestionStage[] = [
+  {
+    key: 'suggested',
+    icon: 'lightbulb',
+    label: 'New suggestion',
+    caption: 'Servix OS flags that Invoice #1042 is 12 days overdue.',
+  },
+  {
+    key: 'reviewing',
+    icon: 'eye',
+    label: 'Reviewing',
+    caption: "You open it and see why it matters-and what's recommended.",
+  },
+  {
+    key: 'executing',
+    icon: 'loader',
+    label: 'Executing',
+    caption: 'You hit Review & Execute-Servix OS sends the reminder.',
+  },
+  {
+    key: 'tracked',
+    icon: 'checkCircle',
+    label: 'Tracked',
+    caption: 'The outcome is tracked automatically: paid 2 days later.',
+  },
+];
+
+export type SuggestionCard = {
+  tag: string;
+  problem: string;
+  whyItMatters: string;
+  action: string;
+};
+
+export const suggestionCards: SuggestionCard[] = [
+  {
+    tag: 'Cash flow',
+    problem: 'Invoice #1042 is 12 days overdue',
+    whyItMatters:
+      "This customer typically pays within 5 days. The delay could signal a cash flow issue worth addressing now.",
+    action: 'Send a friendly payment reminder with a 3-day grace period.',
+  },
+  {
+    tag: 'Pricing',
+    problem: "Your 'Logo Design' service is priced below similar jobs",
+    whyItMatters:
+      "Comparable jobs you've completed closed higher. You may be leaving money on the table.",
+    action: 'Review a suggested price adjustment for this service.',
+  },
+  {
+    tag: 'Customer retention',
+    problem: "3 repeat customers haven't booked in 60+ days",
+    whyItMatters:
+      'Customers who go quiet for two months rarely come back without a nudge.',
+    action: 'Send a personalized check-in message to each customer.',
   },
 ];
 
@@ -434,6 +499,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     heading: 'Product',
     links: [
       { label: 'AI Engine', href: '#ai-engine' },
+      { label: 'AI Suggestion Panel', href: '#ai-suggestions' },
       { label: 'Platform', href: '#journey' },
       { label: 'Pricing', href: '#pricing' },
       { label: 'How It Works', href: '#how-it-works' },
