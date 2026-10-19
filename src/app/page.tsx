@@ -1,5 +1,6 @@
 import AIDemoSection from '@/components/AIDemoSection';
 import AIEngineSection from '@/components/AIEngineSection';
+import AISuggestionPanelSection from '@/components/AISuggestionPanelSection';
 import BeginnerSection from '@/components/BeginnerSection';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
@@ -24,6 +25,7 @@ export default function HomePage() {
         <Navbar />
         <HeroSection />
         <AIEngineSection />
+        <AISuggestionPanelSection />
         <JourneySection />
         <AIDemoSection />
         <BeginnerSection />
