@@ -101,8 +101,7 @@ export const journeyStages: JourneyStage[] = [
       },
       {
         title: 'AI Website Builder',
-        description:
-          'Launch a professional, ready-to-go website without writing code.',
+        description: 'Launch a professional, ready-to-go website without writing code.',
         status: 'available',
       },
     ],
@@ -116,20 +115,17 @@ export const journeyStages: JourneyStage[] = [
     items: [
       {
         title: 'Online Office',
-        description:
-          'Manage jobs, customers, and day-to-day operations from a single workspace.',
+        description: 'Manage jobs, customers, and day-to-day operations from a single workspace.',
         status: 'available',
       },
       {
         title: 'Invoicing & Contracts',
-        description:
-          'Create and send professional invoices and contracts in minutes.',
+        description: 'Create and send professional invoices and contracts in minutes.',
         status: 'available',
       },
       {
         title: 'Client & Team Management',
-        description:
-          'Track customers, collaborate with your team, and stay organized as you grow.',
+        description: 'Track customers, collaborate with your team, and stay organized as you grow.',
         status: 'available',
       },
     ],
@@ -143,20 +139,17 @@ export const journeyStages: JourneyStage[] = [
     items: [
       {
         title: 'AI Insights & Suggestions',
-        description:
-          'Understand how your business is doing and get recommended next steps.',
+        description: 'Understand how your business is doing and get recommended next steps.',
         status: 'available',
       },
       {
         title: 'AI Pricing & Contract Assistance',
-        description:
-          'Get help pricing jobs and generating contracts that protect you.',
+        description: 'Get help pricing jobs and generating contracts that protect you.',
         status: 'available',
       },
       {
         title: 'Ads Manager',
-        description:
-          'Plan and manage customer-acquisition campaigns from inside Servix OS.',
+        description: 'Plan and manage customer-acquisition campaigns from inside Servix OS.',
         status: 'planned',
       },
     ],
@@ -189,47 +182,12 @@ export const aiDemoSteps: AIDemoStep[] = [
   {
     num: '04',
     title: 'Approve',
-    description:
-      "You review it, make any edits, and approve it-you're always the one in control.",
+    description: "You review it, make any edits, and approve it-you're always the one in control.",
   },
   {
     num: '05',
     title: 'Track',
     description: 'Once sent, Servix OS tracks whether the customer responded or paid.',
-  },
-];
-
-export type SuggestionStage = {
-  key: 'suggested' | 'reviewing' | 'executing' | 'tracked';
-  icon: 'lightbulb' | 'eye' | 'loader' | 'checkCircle';
-  label: string;
-  caption: string;
-};
-
-export const suggestionLifecycleStages: SuggestionStage[] = [
-  {
-    key: 'suggested',
-    icon: 'lightbulb',
-    label: 'New suggestion',
-    caption: 'Servix OS flags that Invoice #1042 is 12 days overdue.',
-  },
-  {
-    key: 'reviewing',
-    icon: 'eye',
-    label: 'Reviewing',
-    caption: "You open it and see why it matters-and what's recommended.",
-  },
-  {
-    key: 'executing',
-    icon: 'loader',
-    label: 'Executing',
-    caption: 'You hit Review & Execute-Servix OS sends the reminder.',
-  },
-  {
-    key: 'tracked',
-    icon: 'checkCircle',
-    label: 'Tracked',
-    caption: 'The outcome is tracked automatically: paid 2 days later.',
   },
 ];
 
@@ -245,7 +203,7 @@ export const suggestionCards: SuggestionCard[] = [
     tag: 'Cash flow',
     problem: 'Invoice #1042 is 12 days overdue',
     whyItMatters:
-      "This customer typically pays within 5 days. The delay could signal a cash flow issue worth addressing now.",
+      'This customer typically pays within 5 days. The delay could signal a cash flow issue worth addressing now.',
     action: 'Send a friendly payment reminder with a 3-day grace period.',
   },
   {
@@ -258,8 +216,7 @@ export const suggestionCards: SuggestionCard[] = [
   {
     tag: 'Customer retention',
     problem: "3 repeat customers haven't booked in 60+ days",
-    whyItMatters:
-      'Customers who go quiet for two months rarely come back without a nudge.',
+    whyItMatters: 'Customers who go quiet for two months rarely come back without a nudge.',
     action: 'Send a personalized check-in message to each customer.',
   },
 ];
@@ -397,7 +354,7 @@ export const testimonials: Testimonial[] = [
   {
     name: 'David Kim',
     role: 'CEO, GrowthStack Agency',
-    text: "We moved our entire team to Servix OS. The online office and AI insights save our team real time every week on the operational work that used to eat our days.",
+    text: 'We moved our entire team to Servix OS. The online office and AI insights save our team real time every week on the operational work that used to eat our days.',
     rating: 5,
   },
 ];

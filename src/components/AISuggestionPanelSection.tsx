@@ -1,96 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import { AnimatePresence } from 'framer-motion';
 import * as m from 'framer-motion/m';
-import type { LucideIcon } from 'lucide-react';
-import { CheckCircle, Eye, Lightbulb, Loader2 } from 'lucide-react';
 
 import SectionHeading from '@/components/shared/SectionHeading';
 import StatusBadge from '@/components/shared/StatusBadge';
-import { suggestionCards, suggestionLifecycleStages } from '@/content/home';
-
-const STAGE_INTERVAL_MS = 2600;
-
-const stageIcons: Record<(typeof suggestionLifecycleStages)[number]['icon'], LucideIcon> = {
-  lightbulb: Lightbulb,
-  eye: Eye,
-  loader: Loader2,
-  checkCircle: CheckCircle,
-};
-
-function SuggestionLifecycleDemo() {
-  const [stageIndex, setStageIndex] = useState(0);
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setStageIndex((current) => (current + 1) % suggestionLifecycleStages.length);
-    }, STAGE_INTERVAL_MS);
-
-    return () => window.clearInterval(intervalId);
-  }, []);
-
-  const stage = suggestionLifecycleStages[stageIndex];
-  const Icon = stageIcons[stage.icon];
-  const isExecuting = stage.key === 'executing';
-  const isTracked = stage.key === 'tracked';
-
-  return (
-    <div className='mx-auto max-w-md rounded-2xl border bg-card p-6 glow-shadow md:p-8'>
-      <div className='mb-5 flex items-center justify-between'>
-        <span className='text-xs font-semibold uppercase tracking-wide text-muted-foreground'>
-          Suggestion Panel · Live preview
-        </span>
-        <AnimatePresence mode='wait' initial={false}>
-          <m.span
-            key={stage.key}
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.3 }}
-            className='inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary'
-          >
-            <Icon size={12} className={isExecuting ? 'animate-spin' : ''} />
-            {stage.label}
-          </m.span>
-        </AnimatePresence>
-      </div>
-
-      <AnimatePresence mode='wait' initial={false}>
-        <m.div
-          key={stage.key}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
-        >
-          <h3 className='mb-2 font-display text-lg font-bold md:text-xl'>
-            Invoice #1042 is overdue
-          </h3>
-          <p className='mb-6 text-sm leading-relaxed text-muted-foreground'>
-            {stage.caption}
-          </p>
-
-          <button
-            type='button'
-            disabled
-            className='gradient-bg inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-primary-foreground disabled:cursor-default'
-            style={{ opacity: isTracked ? 0.6 : 1 }}
-          >
-            {isTracked ? (
-              <>
-                <CheckCircle size={16} /> Result tracked
-              </>
-            ) : (
-              'Review & Execute'
-            )}
-          </button>
-        </m.div>
-      </AnimatePresence>
-    </div>
-  );
-}
+import { suggestionCards } from '@/content/home';
 
 export default function AISuggestionPanelSection() {
   return (
@@ -131,10 +45,23 @@ export default function AISuggestionPanelSection() {
           transition={{ duration: 0.5 }}
           className='mb-16'
         >
-          <SuggestionLifecycleDemo />
+          <div className='mx-auto max-w-3xl overflow-hidden rounded-2xl border bg-card glow-shadow'>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              width={1920}
+              height={1200}
+              className='block h-auto w-full'
+            >
+              <source src='/videos/servix-ai-suggestions-flow.webm' type='video/webm' />
+              <source src='/videos/servix-ai-suggestions-flow.mp4' type='video/mp4' />
+            </video>
+          </div>
         </m.div>
 
-        <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+        {/* <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {suggestionCards.map((card, index) => (
             <m.article
               key={card.problem}
@@ -165,13 +92,13 @@ export default function AISuggestionPanelSection() {
               </button>
             </m.article>
           ))}
-        </div>
+        </div> */}
 
-        <p className='mx-auto mt-12 max-w-2xl text-center text-sm text-muted-foreground'>
-          These cards use illustrative data to preview how the Suggestion Panel is designed
+        {/* <p className='mx-auto mt-12 max-w-2xl text-center text-sm text-muted-foreground'>
+          This preview uses illustrative data to show how the Suggestion Panel is designed
           to work. It's a separate, in-progress part of the AI engine-not yet live-built on
           top of the AI Insights you see today.
-        </p>
+        </p> */}
       </div>
     </section>
   );
