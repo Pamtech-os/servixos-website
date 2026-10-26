@@ -10,6 +10,7 @@ import JourneySection from '@/components/JourneySection';
 import Navbar from '@/components/Navbar';
 import PricingSection from '@/components/PricingSection';
 import ScrollToTop from '@/components/ScrollToTop';
+import WaitlistSection from '@/components/WaitlistSection';
 import MotionProvider from '@/components/shared/MotionProvider';
 // import TestimonialsSection from '@/components/TestimonialsSection';
 import { homeStructuredData } from '@/content/home';
@@ -31,6 +32,7 @@ export default function HomePage() {
         <BeginnerSection />
         <HowItWorksSection />
         <PricingSection />
+        <WaitlistSection />
         {/* <TestimonialsSection /> */}
         <FAQSection />
         <Footer />

@@ -9,6 +9,37 @@ export const navLinks: NavLink[] = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Waitlist', href: '/waitlist' },
+];
+
+export type WaitlistPersona = {
+  value: 'aspiring_founder' | 'has_idea' | 'business_owner' | 'exploring';
+  label: string;
+};
+
+export const waitlistPersonas: WaitlistPersona[] = [
+  {
+    value: 'aspiring_founder',
+    label: "I want to start a business but don't know what to start.",
+  },
+  {
+    value: 'has_idea',
+    label: 'I have a business idea and want to get started.',
+  },
+  {
+    value: 'business_owner',
+    label: 'I already run a business.',
+  },
+  {
+    value: 'exploring',
+    label: "I'm interested in exploring Servix OS.",
+  },
+];
+
+export const waitlistPerks: string[] = [
+  'Early access before public launch',
+  'Launch updates and product previews',
+  'Help shape what we build next',
 ];
 
 export type FeatureStatus = 'available' | 'in-development' | 'planned' | 'prototype';
@@ -455,12 +486,13 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     heading: 'Product',
     links: [
-      { label: 'AI Engine', href: '#ai-engine' },
-      { label: 'AI Suggestion Panel', href: '#ai-suggestions' },
-      { label: 'Platform', href: '#journey' },
-      { label: 'Pricing', href: '#pricing' },
-      { label: 'How It Works', href: '#how-it-works' },
-      { label: 'FAQ', href: '#faq' },
+      { label: 'AI Engine', href: '/#ai-engine' },
+      { label: 'AI Suggestion Panel', href: '/#ai-suggestions' },
+      { label: 'Platform', href: '/#journey' },
+      { label: 'Pricing', href: '/#pricing' },
+      { label: 'How It Works', href: '/#how-it-works' },
+      { label: 'FAQ', href: '/#faq' },
+      { label: 'Join the Waitlist', href: '/waitlist' },
     ],
   },
   {

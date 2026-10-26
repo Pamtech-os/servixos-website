@@ -10,5 +10,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
       lastModified: new Date(),
     },
+    {
+      url: `${siteUrl}/waitlist`,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+      lastModified: new Date(),
+    },
   ];
 }
