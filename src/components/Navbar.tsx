@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import servixLogo from '@/assets/servix-logo.png';
 import { navLinks } from '@/content/home';
@@ -17,6 +18,7 @@ const HEADER_OFFSET_FALLBACK = 96;
 const MOBILE_MENU_CLOSE_DELAY_MS = 280;
 
 export default function Navbar() {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const scrolled = useScrollThreshold(20);
 
@@ -49,7 +51,11 @@ export default function Navbar() {
 
   const scrollToSection = (id: string) => {
     const target = document.getElementById(id);
-    if (!target) return;
+    if (!target) {
+      // Section lives on the homepage; navigate there instead (e.g. from /waitlist).
+      router.push(`/#${id}`);
+      return;
+    }
 
     const offset = getHeaderOffset();
     const top = target.getBoundingClientRect().top + window.scrollY - offset;
@@ -127,11 +133,11 @@ export default function Navbar() {
             <Moon size={18} className='block dark:hidden' />
           </button>
           <a
-            href='#hero'
-            onClick={(event) => handleNavClick(event, '#hero')}
+            href='#waitlist'
+            onClick={(event) => handleNavClick(event, '#waitlist')}
             className='gradient-bg rounded-full px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105 xl:px-5'
           >
-            Get Started
+            Join the Waitlist
           </a>
         </div>
 
@@ -178,11 +184,11 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href='#hero'
-                onClick={(event) => handleNavClick(event, '#hero', true)}
+                href='#waitlist'
+                onClick={(event) => handleNavClick(event, '#waitlist', true)}
                 className='gradient-bg mt-2 rounded-full px-5 py-2.5 text-center text-sm font-semibold text-primary-foreground'
               >
-                Get Started
+                Join the Waitlist
               </a>
             </div>
           </m.div>
