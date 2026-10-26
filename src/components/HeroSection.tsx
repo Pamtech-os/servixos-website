@@ -179,12 +179,12 @@ export default function HeroSection() {
 
             <div className='mt-7 flex flex-col gap-4 sm:flex-row'>
               <m.a
-                href='#pricing'
+                href='#waitlist'
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
                 className='gradient-bg glow-shadow inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 text-base font-semibold text-primary-foreground'
               >
-                Get Started <ArrowRight size={18} />
+                Join the Waitlist <ArrowRight size={18} />
               </m.a>
               <m.a
                 href='#ai-engine'

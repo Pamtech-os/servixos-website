@@ -15,6 +15,7 @@ out
 coverage
 *.tsbuildinfo
 *.local
+.env
 
 # Editor directories and files
 .vscode/*
