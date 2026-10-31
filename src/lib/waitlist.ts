@@ -6,6 +6,7 @@ const API_BASE_URL = (process.env.NEXT_PUBLIC_API_BASE_URL ?? '').replace(/\/+$/
 
 const GENERIC_ERROR_MESSAGE =
   "We couldn't add you to the waitlist right now. Please try again in a moment.";
+const UNSUBSCRIBE_ERROR_MESSAGE = "We couldn't unsubscribe you right now. Please try again in a moment.";
 const RATE_LIMIT_MESSAGE = 'Too many attempts. Please wait a minute and try again.';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,6 +46,35 @@ export function validateWaitlistSignup(signup: WaitlistSignup): string | null {
   if (!EMAIL_PATTERN.test(signup.email)) return 'Please enter a valid email address';
   if (!signup.persona) return 'Please tell us what best describes you';
   return null;
+}
+
+export async function unsubscribeFromWaitlist(token: string): Promise<void> {
+  if (!API_BASE_URL) {
+    console.error('[waitlist] NEXT_PUBLIC_API_BASE_URL is not set.');
+    throw new WaitlistError(UNSUBSCRIBE_ERROR_MESSAGE);
+  }
+
+  let response: Response;
+
+  try {
+    response = await fetch(`${API_BASE_URL}/api/waitlist/unsubscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    });
+  } catch {
+    throw new WaitlistError(UNSUBSCRIBE_ERROR_MESSAGE);
+  }
+
+  if (response.status === 429) {
+    throw new WaitlistError(RATE_LIMIT_MESSAGE);
+  }
+
+  const result = (await response.json().catch(() => null)) as WaitlistResponse | null;
+
+  if (!response.ok || !result?.success) {
+    throw new WaitlistError(result?.message || UNSUBSCRIBE_ERROR_MESSAGE);
+  }
 }
 
 export async function joinWaitlist(signup: WaitlistSignup): Promise<WaitlistResult> {

@@ -1,7 +1,9 @@
 import Image from 'next/image';
 
 import servixLogo from '@/assets/servix-logo.png';
+import CookieSettingsButton from '@/components/CookieSettingsButton';
 import { footerLinkGroups, socialLinks } from '@/content/home';
+import { META_PIXEL_ID } from '@/lib/meta-pixel';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -53,6 +55,7 @@ export default function Footer() {
             © {year} Servix OS. All rights reserved.
           </p>
           <div className='flex gap-6'>
+            {META_PIXEL_ID ? <CookieSettingsButton /> : null}
             {socialLinks.map((social) => (
               <a
                 key={social.label}
