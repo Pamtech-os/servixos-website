@@ -1,10 +1,28 @@
 import type { Metadata, Viewport } from 'next';
+import { DM_Sans, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import type { ReactNode } from 'react';
+
+import CookieConsent from '@/components/CookieConsent';
 
 import '@/index.css';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://servixos.com';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  axes: ['opsz'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+});
 
 const themeInitializerScript =
   "(()=>{try{const t=localStorage.getItem('theme');const d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d)}catch{}})();";
@@ -93,19 +111,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <head>
-        <link rel='preconnect' href='https://fonts.googleapis.com' />
-        <link
-          rel='preconnect'
-          href='https://fonts.gstatic.com'
-          crossOrigin='anonymous'
-        />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap'
-          rel='stylesheet'
-        />
-      </head>
+    <html
+      lang='en'
+      className={`${spaceGrotesk.variable} ${dmSans.variable}`}
+      suppressHydrationWarning
+    >
       <body suppressHydrationWarning>
         <Script
           id='theme-init'
@@ -113,6 +123,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: themeInitializerScript }}
         />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

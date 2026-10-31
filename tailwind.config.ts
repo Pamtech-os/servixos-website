@@ -20,8 +20,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["'Space Grotesk'", 'sans-serif'],
-        body: ["'DM Sans'", 'sans-serif'],
+        display: ['var(--font-space-grotesk)', 'sans-serif'],
+        body: ['var(--font-dm-sans)', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',
