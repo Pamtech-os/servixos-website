@@ -319,7 +319,7 @@ export const pricingPlans: PricingPlan[] = [
       'Team Members (1)',
       'Support Center',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Join the Waitlist',
     popular: false,
   },
   {
@@ -336,7 +336,7 @@ export const pricingPlans: PricingPlan[] = [
       'Client Management (up to 50)',
       'Team Members (up to 10)',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Join the Waitlist',
     popular: true,
   },
   {
@@ -351,7 +351,7 @@ export const pricingPlans: PricingPlan[] = [
       'Client Management (unlimited)',
       'Team Members (unlimited)',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Join the Waitlist',
     popular: false,
   },
 ];
@@ -457,16 +457,16 @@ export const faqs: FAQ[] = [
     a: 'Yes. You can try Servix OS before committing to a paid plan.',
   },
   {
-    q: 'Is my business data secure?',
-    a: 'Yes. We use industry-standard security practices to keep your data safe.',
+    q: 'Will my business data be secure?',
+    a: 'Servix OS will use industry-standard security practices to keep your data safe.',
   },
   {
-    q: 'Do I own my business and data?',
-    a: 'Yes. You fully own your business, customers, and data at all times.',
+    q: 'Will I own my business and data?',
+    a: 'Yes. You will fully own your business, customers, and data at all times.',
   },
   {
     q: 'How do I get started?',
-    a: 'Simply sign up, follow the guided setup, and Servix OS will help you shape and launch your business step by step.',
+    a: 'Join the waitlist today. Once early access opens, you will be able to sign up and follow the guided setup, and Servix OS will help you shape and launch your business step by step.',
   },
   {
     q: 'What makes Servix OS unique?',
@@ -507,9 +507,9 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     heading: 'Legal',
     links: [
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
-      { label: 'Cookie Policy', href: '#' },
+      { label: 'Privacy Policy', href: '/privacy' },
+      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Cookie Policy', href: '/privacy#cookies' },
     ],
   },
 ];

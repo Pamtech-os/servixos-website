@@ -5,6 +5,7 @@ import { useId, useRef, useState } from 'react';
 
 import { AnimatePresence } from 'framer-motion';
 import * as m from 'framer-motion/m';
+import Link from 'next/link';
 import {
   ArrowRight,
   Check,
@@ -18,6 +19,7 @@ import {
 
 import type { WaitlistPersona } from '@/content/home';
 import { waitlistPerks, waitlistPersonas } from '@/content/home';
+import { trackWaitlistLead } from '@/lib/meta-pixel';
 import { cn } from '@/lib/utils';
 import {
   EMAIL_MAX_LENGTH,
@@ -90,9 +92,11 @@ export default function WaitlistSection({ variant = 'section' }: WaitlistSection
     try {
       const result = await joinWaitlist(signup);
       showSuccess(result.message, result.alreadyJoined);
+      // Only new signups count as conversions, not repeat emails or the honeypot path.
+      if (!result.alreadyJoined) trackWaitlistLead();
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : 'Something went wrong. Please try again.',
+        error instanceof Error ? error.message : 'Something went wrong. Please try again.'
       );
       setStatus('error');
     } finally {
@@ -105,7 +109,7 @@ export default function WaitlistSection({ variant = 'section' }: WaitlistSection
       id='waitlist'
       className={cn(
         'relative scroll-mt-24 overflow-hidden',
-        isPage ? 'hero-gradient min-h-screen pt-28 pb-20 md:pt-32 lg:pt-36' : 'py-20 md:py-32',
+        isPage ? 'hero-gradient min-h-screen pt-28 pb-20 md:pt-32 lg:pt-36' : 'py-20 md:py-32'
       )}
     >
       <div className='pointer-events-none absolute -left-32 top-10 h-96 w-96 rounded-full bg-primary/10 blur-3xl' />
@@ -115,7 +119,7 @@ export default function WaitlistSection({ variant = 'section' }: WaitlistSection
         <div
           className={cn(
             'mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-16',
-            !isPage && 'rounded-3xl border bg-card/60 p-6 card-shadow sm:p-10 lg:p-14',
+            !isPage && 'rounded-3xl border bg-card/60 p-6 card-shadow sm:p-10 lg:p-14'
           )}
         >
           <m.div
@@ -136,8 +140,8 @@ export default function WaitlistSection({ variant = 'section' }: WaitlistSection
 
             <p className='mt-5 max-w-xl text-lg text-muted-foreground'>
               You don&apos;t need to know everything about business to start one. Servix OS is
-              building a smarter way to discover, start, run, and grow a business with AI by
-              your side.
+              building a smarter way to discover, start, run, and grow a business with AI by your
+              side.
             </p>
 
             <ul className='mt-8 flex flex-col gap-3 text-left'>
@@ -203,10 +207,11 @@ export default function WaitlistSection({ variant = 'section' }: WaitlistSection
                   className='flex flex-col gap-5'
                 >
                   <div>
-                    <h3 className='font-display text-xl font-bold md:text-2xl'>Join the Waitlist</h3>
+                    <h3 className='font-display text-xl font-bold md:text-2xl'>
+                      Join the Waitlist
+                    </h3>
                     <p className='mt-1.5 text-sm text-muted-foreground'>
-                      Be among the first to experience Servix OS. Sign up for early-access
-                      updates.
+                      Be among the first to experience Servix OS. Sign up for early-access updates.
                     </p>
                   </div>
 
@@ -281,7 +286,7 @@ export default function WaitlistSection({ variant = 'section' }: WaitlistSection
                   </div>
 
                   {/* Honeypot: hidden from people, tempting for bots. */}
-                  <div aria-hidden='true' className='absolute -left-[9999px] h-0 w-0 overflow-hidden'>
+                  <div aria-hidden='true' className='absolute -left h-0 w-0 overflow-hidden'>
                     <label htmlFor={`${formId}-company`}>Company</label>
                     <input
                       id={`${formId}-company`}
@@ -320,9 +325,16 @@ export default function WaitlistSection({ variant = 'section' }: WaitlistSection
                   </m.button>
 
                   <p className='text-xs leading-relaxed text-muted-foreground'>
-                    By joining the waitlist, you agree to receive emails from Servix OS about our
-                    launch and early-access updates. We won&apos;t share your details, and you can
-                    unsubscribe at any time.
+                    By joining the waitlist, you agree to our{' '}
+                    <Link href='/terms' className='font-medium text-primary hover:underline'>
+                      Terms of Service
+                    </Link>{' '}
+                    and to receive emails from Servix OS about our launch and early-access updates.
+                    You can unsubscribe at any time. See our{' '}
+                    <Link href='/privacy' className='font-medium text-primary hover:underline'>
+                      Privacy Policy
+                    </Link>
+                    .
                   </p>
                 </m.form>
               )}
