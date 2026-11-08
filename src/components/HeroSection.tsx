@@ -1,18 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import { AnimatePresence } from 'framer-motion';
 import * as m from 'framer-motion/m';
 import { ArrowRight, ShieldCheck, Sparkles, UserCheck } from 'lucide-react';
-import Image from 'next/image';
-
-import heroDashboardDark from '@/assets/hero-dashboard-dark.png';
-import heroDashboardDarkInsights from '@/assets/hero-dashboard-dark-insights.png';
-import heroDashboardDarkPayments from '@/assets/hero-dashboard-dark-payments.png';
-import heroDashboardLight from '@/assets/hero-dashboard-light.png';
-import heroDashboardLightJobs from '@/assets/hero-dashboard-light-jobs.png';
-import heroDashboardLightTeams from '@/assets/hero-dashboard-light-teams.png';
 
 const fadeUp = {
   initial: { opacity: 0, y: 32 },
@@ -34,69 +23,7 @@ const heroBubbles = [
   { size: 95, top: '78%', right: '24%', delay: 1, duration: 6.8, driftX: 14 },
 ];
 
-const HERO_SLIDE_INTERVAL_MS = 3000;
-const HERO_ROTATION_DEGREES = [-2.8, -2.1, -1.4, 1.4, 2.1, 2.8] as const;
-type HeroRotation = (typeof HERO_ROTATION_DEGREES)[number];
-const DEFAULT_LIGHT_ROTATION = HERO_ROTATION_DEGREES[2];
-const DEFAULT_DARK_ROTATION = HERO_ROTATION_DEGREES[5];
-
-const getRandomRotation = (): HeroRotation =>
-  HERO_ROTATION_DEGREES[Math.floor(Math.random() * HERO_ROTATION_DEGREES.length)];
-
-const lightDashboardSlides = [
-  {
-    src: heroDashboardLight,
-    alt: 'Servix OS light invoices dashboard preview',
-  },
-  {
-    src: heroDashboardLightJobs,
-    alt: 'Servix OS light jobs dashboard preview',
-  },
-  {
-    src: heroDashboardLightTeams,
-    alt: 'Servix OS light teams dashboard preview',
-  },
-];
-
-const darkDashboardSlides = [
-  {
-    src: heroDashboardDark,
-    alt: 'Servix OS dark dashboard preview',
-  },
-  {
-    src: heroDashboardDarkPayments,
-    alt: 'Servix OS dark payments dashboard preview',
-  },
-  {
-    src: heroDashboardDarkInsights,
-    alt: 'Servix OS dark AI insights dashboard preview',
-  },
-];
-
 export default function HeroSection() {
-  const slideCount = Math.min(lightDashboardSlides.length, darkDashboardSlides.length);
-  const [slideIndex, setSlideIndex] = useState(0);
-  const [lightRotation, setLightRotation] = useState<HeroRotation>(DEFAULT_LIGHT_ROTATION);
-  const [darkRotation, setDarkRotation] = useState<HeroRotation>(DEFAULT_DARK_ROTATION);
-
-  useEffect(() => {
-    if (slideCount <= 1) {
-      return;
-    }
-
-    const intervalId = window.setInterval(() => {
-      setSlideIndex((currentIndex) => (currentIndex + 1) % slideCount);
-      setLightRotation(getRandomRotation());
-      setDarkRotation(getRandomRotation());
-    }, HERO_SLIDE_INTERVAL_MS);
-
-    return () => window.clearInterval(intervalId);
-  }, [slideCount]);
-
-  const activeSlideIndex = slideCount > 0 ? slideIndex % slideCount : 0;
-  const activeLightSlide = lightDashboardSlides[activeSlideIndex] ?? lightDashboardSlides[0];
-  const activeDarkSlide = darkDashboardSlides[activeSlideIndex] ?? darkDashboardSlides[0];
-
   return (
     <section
       id='hero'
@@ -139,9 +66,9 @@ export default function HeroSection() {
       <div className='pointer-events-none absolute -right-32 top-1/3 h-96 w-96 rounded-full bg-secondary/10 blur-3xl' />
 
       <div className='container relative z-10 mx-auto px-4'>
-        <div className='flex flex-col items-center gap-10 md:gap-10 lg:flex-row lg:gap-10 xl:gap-16'>
+        <div className='flex flex-col items-center gap-10 md:gap-12 xl:gap-14'>
           <m.div
-            className='flex flex-1 flex-col items-center text-center lg:items-start lg:text-left'
+            className='flex w-full max-w-4xl flex-col items-center text-center'
             initial={fadeUp.initial}
             animate={fadeUp.animate}
             transition={{ duration: 0.65, ease: 'easeOut' }}
@@ -197,7 +124,7 @@ export default function HeroSection() {
             </div>
 
             <m.div
-              className='mt-9 flex flex-wrap items-center gap-x-6 gap-y-3'
+              className='mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-3'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.45 }}
@@ -218,69 +145,29 @@ export default function HeroSection() {
           </m.div>
 
           <m.div
-            className='flex w-full flex-1 justify-center'
-            initial={{ opacity: 0, x: 48 }}
-            animate={{ opacity: 1, x: 0 }}
+            className='flex w-full justify-center'
+            initial={{ opacity: 0, y: 48 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.25, ease: 'easeOut' }}
           >
-            <div className='animate-float relative w-full max-w-lg md:max-w-lg lg:max-w-xl xl:max-w-2xl'>
-              <AnimatePresence mode='wait' initial={false}>
-                <m.div
-                  key={`light-slide-${activeSlideIndex}`}
-                  className='dark:hidden'
-                  initial={{
-                    opacity: 0,
-                    y: 14,
-                    scale: 0.985,
-                    rotate: lightRotation + (lightRotation > 0 ? 0.8 : -0.8),
-                  }}
-                  animate={{ opacity: 1, y: 0, scale: 1, rotate: lightRotation }}
-                  exit={{
-                    opacity: 0,
-                    y: -12,
-                    scale: 1.015,
-                    rotate: lightRotation * -0.35,
-                  }}
-                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+            <div className='animate-float relative w-full max-w-5xl'>
+              <div className='rounded-2xl border border-primary/15 bg-card/80 p-2 glow-shadow backdrop-blur-sm sm:rounded-3xl sm:p-3 lg:p-4'>
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload='auto'
+                  poster='/servix-onboarding-poster.jpg'
+                  width={1600}
+                  height={900}
+                  aria-label='Servix OS onboarding walkthrough'
+                  className='relative z-10 block h-auto w-full rounded-xl sm:rounded-2xl'
                 >
-                  <Image
-                    src={activeLightSlide.src}
-                    alt={activeLightSlide.alt}
-                    sizes='(max-width: 768px) 92vw, (max-width: 1280px) 42vw, 40vw'
-                    className='relative z-10 w-full rounded-2xl glow-shadow'
-                    priority
-                  />
-                </m.div>
-              </AnimatePresence>
-
-              <AnimatePresence mode='wait' initial={false}>
-                <m.div
-                  key={`dark-slide-${activeSlideIndex}`}
-                  className='hidden dark:block'
-                  initial={{
-                    opacity: 0,
-                    y: 14,
-                    scale: 0.985,
-                    rotate: darkRotation + (darkRotation > 0 ? 0.8 : -0.8),
-                  }}
-                  animate={{ opacity: 1, y: 0, scale: 1, rotate: darkRotation }}
-                  exit={{
-                    opacity: 0,
-                    y: -12,
-                    scale: 1.015,
-                    rotate: darkRotation * -0.35,
-                  }}
-                  transition={{ duration: 0.6, ease: 'easeInOut' }}
-                >
-                  <Image
-                    src={activeDarkSlide.src}
-                    alt={activeDarkSlide.alt}
-                    sizes='(max-width: 768px) 92vw, (max-width: 1280px) 42vw, 40vw'
-                    className='relative z-10 w-full rounded-2xl glow-shadow'
-                    priority
-                  />
-                </m.div>
-              </AnimatePresence>
+                  <source src='/videos/servix-onboarding.webm' type='video/webm' />
+                  <source src='/videos/servix-onboarding.mp4' type='video/mp4' />
+                </video>
+              </div>
             </div>
           </m.div>
         </div>
