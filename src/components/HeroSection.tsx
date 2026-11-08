@@ -2,6 +2,7 @@
 
 import * as m from 'framer-motion/m';
 import { ArrowRight, ShieldCheck, Sparkles, UserCheck } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 const fadeUp = {
   initial: { opacity: 0, y: 32 },
@@ -24,6 +25,47 @@ const heroBubbles = [
 ];
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // React doesn't render the `muted` attribute in server HTML, and mobile
+    // browsers (iOS Safari especially) only allow autoplay for muted videos.
+    // Set it explicitly on the element, then kick off playback ourselves.
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    const tryPlay = () => {
+      video.play().catch(() => {
+        // Autoplay blocked (e.g. Low Power Mode) — retry on first interaction.
+      });
+    };
+
+    tryPlay();
+    video.addEventListener('canplay', tryPlay, { once: true });
+
+    const onInteract = () => tryPlay();
+    window.addEventListener('touchstart', onInteract, { once: true, passive: true });
+    window.addEventListener('scroll', onInteract, { once: true, passive: true });
+
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible' && video.paused) tryPlay();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      video.removeEventListener('canplay', tryPlay);
+      window.removeEventListener('touchstart', onInteract);
+      window.removeEventListener('scroll', onInteract);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
+
   return (
     <section
       id='hero'
@@ -153,6 +195,7 @@ export default function HeroSection() {
             <div className='animate-float relative w-full max-w-5xl'>
               <div className='rounded-2xl border border-primary/15 bg-card/80 p-2 glow-shadow backdrop-blur-sm sm:rounded-3xl sm:p-3 lg:p-4'>
                 <video
+                  ref={videoRef}
                   autoPlay
                   muted
                   loop
@@ -164,8 +207,8 @@ export default function HeroSection() {
                   aria-label='Servix OS onboarding walkthrough'
                   className='relative z-10 block h-auto w-full rounded-xl sm:rounded-2xl'
                 >
-                  <source src='/videos/servix-onboarding.webm' type='video/webm' />
                   <source src='/videos/servix-onboarding.mp4' type='video/mp4' />
+                  <source src='/videos/servix-onboarding.webm' type='video/webm' />
                 </video>
               </div>
             </div>
