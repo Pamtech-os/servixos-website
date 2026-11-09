@@ -2,6 +2,7 @@
 
 import * as m from 'framer-motion/m';
 
+import BrowserChrome from '@/components/shared/BrowserChrome';
 import SectionHeading from '@/components/shared/SectionHeading';
 import StatusBadge from '@/components/shared/StatusBadge';
 import { suggestionCards } from '@/content/home';
@@ -45,7 +46,8 @@ export default function AISuggestionPanelSection() {
           transition={{ duration: 0.5 }}
           className='mb-16'
         >
-          <div className='mx-auto max-w-3xl overflow-hidden rounded-2xl border bg-card glow-shadow'>
+          <div className='mx-auto max-w-3xl overflow-hidden rounded-xl border border-black/10 bg-card glow-shadow sm:rounded-2xl dark:border-white/10'>
+            <BrowserChrome />
             <video
               autoPlay
               muted

@@ -4,6 +4,8 @@ import * as m from 'framer-motion/m';
 import { ArrowRight, ShieldCheck, Sparkles, UserCheck } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
+import BrowserChrome from '@/components/shared/BrowserChrome';
+
 const fadeUp = {
   initial: { opacity: 0, y: 32 },
   animate: { opacity: 1, y: 0 },
@@ -193,7 +195,8 @@ export default function HeroSection() {
             transition={{ duration: 0.75, delay: 0.25, ease: 'easeOut' }}
           >
             <div className='animate-float relative w-full max-w-5xl'>
-              <div className='rounded-2xl border border-primary/15 bg-card/80 p-2 glow-shadow backdrop-blur-sm sm:rounded-3xl sm:p-3 lg:p-4'>
+              <div className='overflow-hidden rounded-xl border border-black/10 bg-card glow-shadow sm:rounded-2xl dark:border-white/10'>
+                <BrowserChrome />
                 <video
                   ref={videoRef}
                   autoPlay
@@ -205,7 +208,7 @@ export default function HeroSection() {
                   width={1600}
                   height={900}
                   aria-label='Servix OS onboarding walkthrough'
-                  className='relative z-10 block h-auto w-full rounded-xl sm:rounded-2xl'
+                  className='relative z-10 block h-auto w-full'
                 >
                   <source src='/videos/servix-onboarding.mp4' type='video/mp4' />
                   <source src='/videos/servix-onboarding.webm' type='video/webm' />
