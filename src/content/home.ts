@@ -515,9 +515,13 @@ export const footerLinkGroups: FooterLinkGroup[] = [
 ];
 
 export const socialLinks = [
-  { label: 'Twitter', href: '#' },
-  { label: 'LinkedIn', href: '#' },
-  { label: 'Facebook', href: '#' },
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/profile.php?id=61595776550041',
+  },
+  { label: 'Instagram', href: 'https://www.instagram.com/servixos.official/' },
+  { label: 'Twitter', href: 'https://x.com/ServixOS' },
+  // { label: 'LinkedIn', href: '#' },
 ];
 
 export const homeStructuredData = {
