@@ -60,6 +60,8 @@ export default function Footer() {
               <a
                 key={social.label}
                 href={social.href}
+                target='_blank'
+                rel='noopener noreferrer'
                 className='text-xs text-muted-foreground transition-colors hover:text-foreground'
               >
                 {social.label}
